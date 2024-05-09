@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "U7ki3DHuMG1C99gKKTQ/mZlISrbeljQl+3BYDyarKSlfjcaN5pPK6wV+jMgi4/cI/k6fBUpw8pyQKImU/xcsPg==",
+  "success": true,
+  "projectFilePath": "C:\\Dev\\modularmono\\WebApplication1\\ModuleB2.Application\\ModuleB2.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Coditas\\.nuget\\packages\\mediatr\\12.2.0\\mediatr.12.2.0.nupkg.sha512",
+    "C:\\Users\\Coditas\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\Coditas\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

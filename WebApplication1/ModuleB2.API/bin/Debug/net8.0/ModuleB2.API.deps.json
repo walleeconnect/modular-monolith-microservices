@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "ModuleB2.API/1.0.0": {
+        "runtime": {
+          "ModuleB2.API.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ModuleB2.API/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

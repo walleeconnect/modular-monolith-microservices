@@ -1,0 +1,11 @@
+C:\Dev\modularmono\WebApplication1\ModuleB2.API\bin\Debug\net8.0\ModuleB2.API.deps.json
+C:\Dev\modularmono\WebApplication1\ModuleB2.API\bin\Debug\net8.0\ModuleB2.API.dll
+C:\Dev\modularmono\WebApplication1\ModuleB2.API\bin\Debug\net8.0\ModuleB2.API.pdb
+C:\Dev\modularmono\WebApplication1\ModuleB2.API\obj\Debug\net8.0\ModuleB2.API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Dev\modularmono\WebApplication1\ModuleB2.API\obj\Debug\net8.0\ModuleB2.API.AssemblyInfoInputs.cache
+C:\Dev\modularmono\WebApplication1\ModuleB2.API\obj\Debug\net8.0\ModuleB2.API.AssemblyInfo.cs
+C:\Dev\modularmono\WebApplication1\ModuleB2.API\obj\Debug\net8.0\ModuleB2.API.csproj.CoreCompileInputs.cache
+C:\Dev\modularmono\WebApplication1\ModuleB2.API\obj\Debug\net8.0\ModuleB2.API.dll
+C:\Dev\modularmono\WebApplication1\ModuleB2.API\obj\Debug\net8.0\refint\ModuleB2.API.dll
+C:\Dev\modularmono\WebApplication1\ModuleB2.API\obj\Debug\net8.0\ModuleB2.API.pdb
+C:\Dev\modularmono\WebApplication1\ModuleB2.API\obj\Debug\net8.0\ref\ModuleB2.API.dll

@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "aD/K0SfEIeVo47L9zXvSOv+bb6Rzg//IIgSzK2UZiYQ=",
+  "Source": "ModuleA",
+  "BasePath": "_content/ModuleA",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

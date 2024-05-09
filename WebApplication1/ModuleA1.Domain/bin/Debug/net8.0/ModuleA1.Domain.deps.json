@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "ModuleA1.Domain/1.0.0": {
+        "runtime": {
+          "ModuleA1.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ModuleA1.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
