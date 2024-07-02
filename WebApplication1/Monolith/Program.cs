@@ -47,8 +47,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.Zero  // Adjust if necessary
         };
     });
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IAuthorizationHandler, PermissionsHandler>();
+builder.Services.AddSingleton<IAuthorizationPolicyProvider, CustomAuthorizationPolicyProvider>();
 
-builder.Services.AddAuthorization();
+//builder.Services.AddAuthorization();
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("PermissionPolicy", policy =>
+//        policy.Requirements.Add(new PermissionsRequirement(Permissions.None))); // Default to None
+//});
 
 builder.Services.AddControllers();
 

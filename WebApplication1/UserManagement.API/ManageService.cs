@@ -38,7 +38,7 @@ namespace UserManagement.API
             {
                 UserName = userName,
                 Email = email,
-                DisplayName = displayName
+               // DisplayName = displayName
             };
 
             var result = await _userManager.CreateAsync(user, password);
@@ -59,7 +59,7 @@ namespace UserManagement.API
             }
 
             user.Email = email;
-            user.DisplayName = displayName;
+           // user.DisplayName = displayName;
 
             var result = await _userManager.UpdateAsync(user);
             if (!result.Succeeded)

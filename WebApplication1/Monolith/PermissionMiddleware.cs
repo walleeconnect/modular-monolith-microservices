@@ -11,27 +11,27 @@
 
         public async Task Invoke(HttpContext context)
         {
-            if (context.User.Identity?.IsAuthenticated == true)
-            {
-                var permissionsClaim = context.User.Claims.FirstOrDefault(c => c.Type == "Permission");
+            //if (context.User.Identity?.IsAuthenticated == true)
+            //{
+            //    var permissionsClaim = context.User.Claims.FirstOrDefault(c => c.Type == "Permissions");
 
-                if (permissionsClaim == null)
-                {
-                    context.Response.StatusCode = StatusCodes.Status403Forbidden;
-                    await context.Response.WriteAsync("Permission claim not found.");
-                    return;
-                }
+            //    if (permissionsClaim == null)
+            //    {
+            //        context.Response.StatusCode = StatusCodes.Status403Forbidden;
+            //        await context.Response.WriteAsync("Permission claim not found.");
+            //        return;
+            //    }
 
-                // Add your logic to validate permissions here.
-                // For example, check if the user has a specific permission:
-                var requiredPermission = context.Request.Headers["Required-Permission"].ToString();
-                if (!string.IsNullOrEmpty(requiredPermission) && !permissionsClaim.Value.Contains(requiredPermission))
-                {
-                    context.Response.StatusCode = StatusCodes.Status403Forbidden;
-                    await context.Response.WriteAsync("Permission denied.");
-                    return;
-                }
-            }
+            //    // Add your logic to validate permissions here.
+            //    // For example, check if the user has a specific permission:
+            //    var requiredPermission = context.Request.Headers["Required-Permission"].ToString();
+            //    if (!string.IsNullOrEmpty(requiredPermission) && !permissionsClaim.Value.Contains(requiredPermission))
+            //    {
+            //        context.Response.StatusCode = StatusCodes.Status403Forbidden;
+            //        await context.Response.WriteAsync("Permission denied.");
+            //        return;
+            //    }
+            //}
 
             await _next(context);
         }

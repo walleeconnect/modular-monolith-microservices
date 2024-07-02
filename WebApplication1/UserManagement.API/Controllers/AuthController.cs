@@ -24,49 +24,48 @@ namespace UserManagement.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            var user = new ApplicationUser { UserName = model.Username, Email = model.Email, DisplayName=model.DisplayName };
+            if (!PermissionsHelper.ValidatePermissions(model.UserPermissions))
+            {
+                return BadRequest(new { error = "Invalid permissions" });
+            }
+
+            var user = new ApplicationUser
+            {
+                UserName = model.Username,
+                Email = model.Email,
+                TenantId = model.TenantId,
+                UserPermissions = PermissionsHelper.AggregatePermissions(model.UserPermissions),
+                Role = model.Role
+            };
+
             var result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
-                if (!string.IsNullOrEmpty(model.Role) && await _roleManager.RoleExistsAsync(model.Role))
-                {
-                    await _userManager.AddToRoleAsync(user, model.Role);
-                }
-                else
-                {
-                    await _userManager.AddToRoleAsync(user, "User");
-                }
-
-                if (model.Permissions != null)
-                {
-                    foreach (var permission in model.Permissions)
-                    {
-                        await _userManager.AddClaimAsync(user, new Claim("Permission", permission));
-                    }
-                }
-
                 return Ok(new { result = "User created successfully" });
             }
 
             return BadRequest(new { error = result.Errors });
         }
 
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var user = await _userManager.FindByNameAsync(model.Username);
+
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
                 var authClaims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.Role, "Admin"),
-                new Claim("Permission", "CanViewUsers")
-            };
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim("TenantId", user.TenantId.ToString()),
+            new Claim("Permissions", ((int)user.UserPermissions).ToString()),
+            new Claim(ClaimTypes.Role, user.Role)
+        };
 
-                var authSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]));
+                var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
 
                 var token = new JwtSecurityToken(
                     issuer: _configuration["Jwt:Issuer"],
@@ -76,7 +75,11 @@ namespace UserManagement.API.Controllers
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                 );
 
-                return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+                return Ok(new
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                    expiration = token.ValidTo
+                });
             }
             return Unauthorized();
         }
@@ -147,9 +150,9 @@ namespace UserManagement.API.Controllers
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public int TenantId { get; set; }
+        public List<Permissions> UserPermissions { get; set; }
         public string Role { get; set; }
-        public string DisplayName { get; set; }
-        public List<string> Permissions { get; set; }
     }
 
     public class LoginModel

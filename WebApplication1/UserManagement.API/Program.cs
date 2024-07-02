@@ -12,9 +12,10 @@ using UserManagement.API.Controllers;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-    options.UseInMemoryDatabase("InMemoryDb"));
-
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//options.UseInMemoryDatabase("InMemoryDb"));
+//builder.Services.AddDefaultIdentity<ApplicationUser>()
+//        .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
@@ -51,8 +52,8 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
     options.AddPolicy("UserPolicy", policy => policy.RequireRole("User"));
-    options.AddPolicy(Permissions.CanViewUsers, policy => policy.Requirements.Add(new PermissionRequirement(Permissions.CanViewUsers)));
-    options.AddPolicy(Permissions.CanEditUsers, policy => policy.Requirements.Add(new PermissionRequirement(Permissions.CanEditUsers)));
+   // options.AddPolicy(Permissions.CanViewUsers, policy => policy.Requirements.Add(new PermissionRequirement(Permissions.CanViewUsers)));
+   // options.AddPolicy(Permissions.CanEditUsers, policy => policy.Requirements.Add(new PermissionRequirement(Permissions.CanEditUsers)));
 });
 
 builder.Services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
