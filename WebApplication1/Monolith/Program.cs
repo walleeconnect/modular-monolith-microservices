@@ -1,3 +1,5 @@
+using DependentServices.Interfaces;
+using DependentServices.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
@@ -5,6 +7,8 @@ using ModuleA1.API;
 using ModuleA2.API;
 using ModuleB1.API;
 using Monolith;
+using Polly;
+using System.Net;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +20,28 @@ builder.Services.AddModuleB1();
 builder.Services.AddControllers().AddApplicationPart(typeof(ModuleA1.Application.DIForMediatr).Assembly);
 builder.Services.AddControllers().AddApplicationPart(typeof(ModuleA2.Application.DIForMediatr).Assembly);
 builder.Services.AddControllers().AddApplicationPart(typeof(ModuleB1.Application.DIForMediatr).Assembly);
+//HttpClient httpClient = new HttpClient()
+//{
+//    //BaseAddress = new Uri("http://modulebservice/"),
+//    Timeout = TimeSpan.FromSeconds(30)
+//};
+//httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+
+//// Register HttpClient instance
+//builder.Services.AddSingleton(httpClient);
+builder.Services.AddHttpClient<IModuleAService, ModuleAMicroservices>()
+     .AddTransientHttpErrorPolicy(p => p.WaitAndRetryAsync(new[]
+    {
+        TimeSpan.FromSeconds(1),
+        TimeSpan.FromSeconds(5),
+        TimeSpan.FromSeconds(10)
+    }))
+    .AddTransientHttpErrorPolicy(p => p.CircuitBreakerAsync(2, TimeSpan.FromSeconds(30)))
+    .AddPolicyHandler(Policy<HttpResponseMessage>.Handle<HttpRequestException>()
+        .FallbackAsync(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent("Fallback response")
+        })); ;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {

@@ -1,17 +1,20 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DependentServices.Interfaces;
+using MediatR;
 
 namespace ModuleB1.Application
 {
     public class GetModuleB1Handler : IRequestHandler<GetModuleB1Query, string>
     {
-        public Task<string> Handle(GetModuleB1Query request, CancellationToken cancellationToken)
+        IModuleAService moduleAService;
+        public GetModuleB1Handler(IModuleAService moduleAService)
         {
-            return Task.FromResult("ModuleB1");
+            this.moduleAService = moduleAService;
+        }
+
+        public async Task<string> Handle(GetModuleB1Query request, CancellationToken cancellationToken)
+        {
+            var result = await moduleAService.GetModuleA11();
+            return result;
         }
     }
 }

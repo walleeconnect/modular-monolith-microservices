@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DependentServices\DependentServices.csproj" />
+    <ProjectReference Include="..\ClassLibrary1\ModuleA1.Application.csproj" />
+    <ProjectReference Include="..\DependentServiceAbstraction\DependentServiceAbstraction.csproj" />
   </ItemGroup>
 
 </Project>

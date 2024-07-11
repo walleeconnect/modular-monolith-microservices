@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DependentServices\DependentServices.csproj" />
+    <PackageReference Include="MediatR" Version="12.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ModuleA.Abstraction\ModuleA.Abstraction.csproj" />
   </ItemGroup>
 
 </Project>
